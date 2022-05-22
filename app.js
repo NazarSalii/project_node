@@ -1,15 +1,10 @@
 const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 require('dotenv/config');
 const path = require('path');
 const weaponRoutes = require('./routes/weapon');
-const { get } = require('http');
-const { connect } = require('http2');
-const errorMeddleware = require('./middleware/error-middleware');
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 const app = express();
 
 // ejs
@@ -18,13 +13,11 @@ app.set('view engine', 'ejs');
 // middlewares
 
 app.use(express.json());
-app.use(cookieParser());
-app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')))
+
 // routes
 app.use(weaponRoutes);
-app.use(errorMeddleware);
 
 async function start() {
 	try {
